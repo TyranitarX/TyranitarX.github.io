@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>TensorFlow数据增强API学习 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow数据增强API学习">
+<meta property="og:url" content="http://yoursite.com/2019/07/22/Data-Enhancement/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-22T02:08:27.000Z">
+<meta property="article:modified_time" content="2019-07-22T02:13:47.005Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="TensorFlow">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Data-Enhancement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/Data-Enhancement/" class="article-date">
+  <time datetime="2019-07-22T02:08:27.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TensorFlow数据增强API学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># crop</span></span><br><span class="line"><span class="comment"># resize</span></span><br><span class="line"><span class="comment"># flip</span></span><br><span class="line"><span class="comment"># brightness &amp; contrast</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.pyplot <span class="keyword">import</span> imshow</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取原图</span></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(img_decoded)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># resize 对图像进行缩放</span></span><br><span class="line"><span class="comment"># tf.image.resize_area</span></span><br><span class="line"><span class="comment"># tf.image.resize_bicubic</span></span><br><span class="line"><span class="comment"># tf.image.resize_nearest_neighbor</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">resize_img = tf.image.resize_bicubic(img_decoded, [<span class="number">804</span>,<span class="number">1200</span>])</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(resize_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">804</span>,<span class="number">1200</span>,<span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># crop 对图像进行填充/裁剪</span></span><br><span class="line"><span class="comment"># tf.image.pad_to_bounding_box</span></span><br><span class="line"><span class="comment"># tf.image.crop_to_bounding_box</span></span><br><span class="line"><span class="comment"># tf.random_crop</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">padded_img = tf.image.pad_to_bounding_box(img_decoded, <span class="number">50</span>, <span class="number">100</span>, <span class="number">500</span>, <span class="number">800</span>)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(padded_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">500</span>, <span class="number">800</span>, <span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># flip 将图片进行翻转</span></span><br><span class="line"><span class="comment"># tf.image.flip_up_down</span></span><br><span class="line"><span class="comment"># tf.image.flip_left_right</span></span><br><span class="line"><span class="comment"># tf.image.random_flip_up_down</span></span><br><span class="line"><span class="comment"># tf.image.random_flip_left_right</span></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">fliped_img = tf.image.flip_up_down(img_decoded)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(fliped_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># brightenss 改变图像光照/对比度</span></span><br><span class="line"><span class="comment"># tf.image.adjust_brightness</span></span><br><span class="line"><span class="comment"># tf.image.random_brightness</span></span><br><span class="line"><span class="comment"># tf.image.adjust_constrast</span></span><br><span class="line"><span class="comment"># tf.image.random_constrast</span></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">brightness_img = tf.image.random_brightness(img_decoded, <span class="number">1</span>)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(brightness_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/22/Data-Enhancement/" data-id="ck8p6nf0i0005cwwidurreuxq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/22/Cifar-batch-normalization/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          批标准化+数据增强 处理后的Cifar-10 分类网络
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/13/activationfunction/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">激活函数小结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/deep-learning/" style="font-size: 20px;">deep learning</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/activationfunction/">激活函数小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/inceptionnet/">InceptionNet</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

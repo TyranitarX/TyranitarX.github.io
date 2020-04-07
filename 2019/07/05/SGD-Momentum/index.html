@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>梯度下降问题处理以及算法优化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、普通梯度下降训练优化 每次都在整个数据及上计算Loss和梯度 计算量大 可能内存承载不住   梯度方向确定的时候，仍然是每次都走一个单位步长 太慢那么应当怎么样优化呢? 这里提出了两种方法供使用。   ####①. 随机梯度下降   每次只使用一个样本 ####②. Mini-Batch梯度下降   每次使用小部分数据进行训练，同时对数据进行shuffle加快模型收敛，并防止过拟合问题的出现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="梯度下降问题处理以及算法优化">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/SGD-Momentum/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、普通梯度下降训练优化 每次都在整个数据及上计算Loss和梯度 计算量大 可能内存承载不住   梯度方向确定的时候，仍然是每次都走一个单位步长 太慢那么应当怎么样优化呢? 这里提出了两种方法供使用。   ####①. 随机梯度下降   每次只使用一个样本 ####②. Mini-Batch梯度下降   每次使用小部分数据进行训练，同时对数据进行shuffle加快模型收敛，并防止过拟合问题的出现。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://s11.sinaimg.cn/bmiddle/002xJJk2zy7jUyNhVmW3a&690">
+<meta property="article:published_time" content="2019-07-05T03:27:11.000Z">
+<meta property="article:modified_time" content="2019-07-05T03:42:55.879Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="machine learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://s11.sinaimg.cn/bmiddle/002xJJk2zy7jUyNhVmW3a&690">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SGD-Momentum" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/SGD-Momentum/" class="article-date">
+  <time datetime="2019-07-05T03:27:11.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      梯度下降问题处理以及算法优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、普通梯度下降训练优化"><a href="#一、普通梯度下降训练优化" class="headerlink" title="一、普通梯度下降训练优化"></a>一、普通梯度下降训练优化</h2><ul>
+<li><h3 id="每次都在整个数据及上计算Loss和梯度"><a href="#每次都在整个数据及上计算Loss和梯度" class="headerlink" title="每次都在整个数据及上计算Loss和梯度"></a>每次都在整个数据及上计算Loss和梯度</h3><ul>
+<li>计算量大</li>
+<li>可能内存承载不住</li>
+</ul>
+</li>
+<li><h3 id="梯度方向确定的时候，仍然是每次都走一个单位步长"><a href="#梯度方向确定的时候，仍然是每次都走一个单位步长" class="headerlink" title="梯度方向确定的时候，仍然是每次都走一个单位步长"></a>梯度方向确定的时候，仍然是每次都走一个单位步长</h3><ul>
+<li>太慢<div style=color:red;font-size:30px>那么应当怎么样优化呢? 这里提出了两种方法供使用。</li>
+</ul>
+</li>
+<li>####①. 随机梯度下降<br>   每次只使用一个样本</li>
+<li>####②. Mini-Batch梯度下降<br>   每次使用小部分数据进行训练，同时对数据进行shuffle加快模型收敛，并防止过拟合问题的出现。</li>
+</ul>
+<p>利用Mini-Batch梯度下降算法同样是存在问题的，如下图所示的震荡问题。<br><img src="http://s11.sinaimg.cn/bmiddle/002xJJk2zy7jUyNhVmW3a&690" alt=""></p>
+<p>同样，由于普通的梯度下降算法中学习率*当前位置导数的算式，在当梯度下降过程中遇到局部极值点或者鞍点（saddle point）时，该点导数为0。则不论参数α为何值，梯度下降的参数恒为0。这样使得梯度下降无法继续进行下去而停留在当前点上。</p>
+<h2 id="二、动量梯度下降算法"><a href="#二、动量梯度下降算法" class="headerlink" title="二、动量梯度下降算法"></a>二、动量梯度下降算法</h2><ul>
+<li><h3 id="普通梯度下降-SGD"><a href="#普通梯度下降-SGD" class="headerlink" title="普通梯度下降 SGD"></a>普通梯度下降 SGD</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	dx = compute_gradient(x)</span><br><span class="line">	x += learning_rate * dx</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="动量梯度下降-SGD-Momentum"><a href="#动量梯度下降-SGD-Momentum" class="headerlink" title="动量梯度下降 SGD+Momentum"></a>动量梯度下降 SGD+Momentum</h3><p>将每次的梯度乘上一个参数，进行每次梯度的积累。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vx = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	dx = compute_gradient(x)</span><br><span class="line">	vx = rho * vx + dx</span><br><span class="line">	x += learning_rate * vx</span><br></pre></td></tr></table></figure>
+
+<p>  ####特点：</p>
+<ul>
+<li>开始训练时，积累动量，加速训练</li>
+<li>局部极值附近震荡时，梯度为0，由于动量，跳出陷阱</li>
+<li>梯度改变方向的时候，动量缓解震荡</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/SGD-Momentum/" data-id="ck8p6nf0h0004cwwidcgbe08c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/06/cnn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          卷积神经网络
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/05/Cifar-10-instance-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">神经网络实现-------多分类Logistic回归模型</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/deep-learning/" style="font-size: 20px;">deep learning</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/activationfunction/">激活函数小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/inceptionnet/">InceptionNet</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

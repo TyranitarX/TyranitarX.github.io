@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Cifar-batch-normalization" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/04/07/hello-world/" class="article-date">
-  <time datetime="2020-04-07T00:40:51.589Z" itemprop="datePublished">2020-04-07</time>
+    <a href="/2019/07/22/Cifar-batch-normalization/" class="article-date">
+  <time datetime="2019-07-22T08:25:35.000Z" itemprop="datePublished">2019-07-22</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
     </h1>
   
 
@@ -86,24 +86,817 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">CIFAR_DIR = <span class="string">"cifar-10-batches-py"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tensorboard</span></span><br><span class="line"><span class="comment"># 1.指定面板图上显示的变量</span></span><br><span class="line"><span class="comment"># 2.训练过程中将这些变量计算出来，输出到文件中</span></span><br><span class="line"><span class="comment"># 3.文件解析 ./tensorboard --logdir=dir</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用pickle读取数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = pickle.load(f, encoding=<span class="string">'iso-8859-1'</span>)</span><br><span class="line">        <span class="keyword">return</span> data[<span class="string">'data'</span>], data[<span class="string">'labels'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Cifar数据处理类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CifarData</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filenames, need_shuffle)</span>:</span></span><br><span class="line">        all_data = []</span><br><span class="line">        all_labels = []</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> filenames:</span><br><span class="line">            data, labels = load_data(filename)</span><br><span class="line">            <span class="keyword">for</span> item, label <span class="keyword">in</span> zip(data, labels):</span><br><span class="line">                all_data.append(item)</span><br><span class="line">                all_labels.append(label)</span><br><span class="line">        self._data = np.vstack(all_data)</span><br><span class="line">        <span class="comment"># 数据归一化（？</span></span><br><span class="line">        <span class="comment"># self._data = self._data / 127.5 - 1</span></span><br><span class="line">        self._labels = np.hstack(all_labels)</span><br><span class="line">        self._num_examples = self._data.shape[<span class="number">0</span>]</span><br><span class="line">        self._need_shuffle = need_shuffle</span><br><span class="line">        self._indicator = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> self._need_shuffle:</span><br><span class="line">            self._shuffle_data()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 讲训练数据打乱 避免过拟合</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_shuffle_data</span><span class="params">(self)</span>:</span></span><br><span class="line">        p = np.random.permutation(self._num_examples)</span><br><span class="line">        self._data = self._data[p]</span><br><span class="line">        self._labels = self._labels[p]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next_batch</span><span class="params">(self, batch_size)</span>:</span></span><br><span class="line">        end_indicator = self._indicator + batch_size</span><br><span class="line">        <span class="keyword">if</span> end_indicator &gt; self._num_examples:</span><br><span class="line">            <span class="keyword">if</span> self._need_shuffle:</span><br><span class="line">                self._shuffle_data()</span><br><span class="line">                self._indicator = <span class="number">0</span></span><br><span class="line">                end_indicator = batch_size</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">"have no more examples"</span>)</span><br><span class="line">        <span class="keyword">if</span> end_indicator &gt; self._num_examples:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"batch size is larger than all examples"</span>)</span><br><span class="line">        batch_data = self._data[self._indicator: end_indicator]</span><br><span class="line">        batch_labels = self._labels[self._indicator: end_indicator]</span><br><span class="line">        self._indicator = end_indicator</span><br><span class="line">        <span class="keyword">return</span> batch_data, batch_labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># batch_size</span></span><br><span class="line">batch_size = <span class="number">40</span></span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [batch_size, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [batch_size])</span><br><span class="line">is_training =tf.placeholder(tf.bool, [])</span><br><span class="line"></span><br><span class="line">x_image = tf.reshape(x, [<span class="number">-1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>])</span><br><span class="line">x_image = tf.transpose(x_image, perm=[<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br><span class="line">x_image_list = tf.split(x_image, num_or_size_splits=batch_size, axis=<span class="number">0</span>)</span><br><span class="line">result_x_image_list = []</span><br><span class="line"><span class="keyword">for</span> x_single_image <span class="keyword">in</span> x_image_list:</span><br><span class="line">    x_single_image = tf.reshape(x_single_image, [<span class="number">32</span>, <span class="number">32</span>, <span class="number">3</span>])</span><br><span class="line">    data_aug_1 = tf.image.random_flip_left_right(x_single_image)</span><br><span class="line">    data_aug_2 = tf.image.random_brightness(data_aug_1, max_delta=<span class="number">63</span>)</span><br><span class="line">    data_aug_3 = tf.image.random_contrast(data_aug_2, lower=<span class="number">0.2</span>, upper=<span class="number">1.8</span>)</span><br><span class="line">    data_aug_3 = tf.reshape(data_aug_3, [<span class="number">1</span>, <span class="number">32</span>, <span class="number">32</span>, <span class="number">3</span>])</span><br><span class="line">    result_x_image_list.append(data_aug_3)</span><br><span class="line">result_x_images = tf.concat(result_x_image_list, axis= <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">result_x_image_normal = result_x_images /<span class="number">127.5</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Myconv2d</span><span class="params">(input,name,is_training,output_channel= <span class="number">32</span>,kernel_size=<span class="params">(<span class="number">3</span>,<span class="number">3</span>)</span>,padding=<span class="string">'same'</span>,activation= tf.nn.relu)</span>:</span></span><br><span class="line">    conv_result = tf.layers.conv2d(input, output_channel, kernel_size, padding=padding, activation=<span class="literal">None</span>, name=name)</span><br><span class="line">    batch_normalization_result = tf.layers.batch_normalization(conv_result, training = is_training)</span><br><span class="line">    activation_result = activation(batch_normalization_result)</span><br><span class="line">    <span class="keyword">return</span> activation_result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Mypooling2d</span><span class="params">(input, name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> tf.layers.max_pooling2d(input, (<span class="number">2</span>,<span class="number">2</span>), (<span class="number">2</span>,<span class="number">2</span>), name = name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># conv1 :神经元图， feature_map 输出图像</span></span><br><span class="line">conv1_1 = Myconv2d(result_x_image_normal, <span class="string">'conv1_1'</span>, is_training)</span><br><span class="line">conv1_2 = Myconv2d(conv1_1, <span class="string">'conv1_2'</span>, is_training)</span><br><span class="line">conv1_3 = Myconv2d(conv1_2, <span class="string">'conv1_3'</span>, is_training)</span><br><span class="line"></span><br><span class="line"><span class="comment"># pooling1 16 * 16</span></span><br><span class="line">pooling1 = Mypooling2d(conv1_3, <span class="string">'pool1'</span>)</span><br><span class="line"></span><br><span class="line">conv2_1 = Myconv2d(pooling1, <span class="string">'conv2_1'</span>, is_training)</span><br><span class="line">conv2_2 = Myconv2d(conv2_1, <span class="string">'conv2_2'</span>, is_training)</span><br><span class="line">conv2_3 = Myconv2d(conv2_2, <span class="string">'conv2_3'</span>, is_training)</span><br><span class="line"><span class="comment"># 8 * 8</span></span><br><span class="line">pooling2 = Mypooling2d(conv2_3, <span class="string">'pool2'</span>)</span><br><span class="line"></span><br><span class="line">conv3_1 = Myconv2d(pooling2,<span class="string">'conv3_1'</span>, is_training)</span><br><span class="line">conv3_2 = Myconv2d(conv3_1, <span class="string">'conv3_2'</span>, is_training)</span><br><span class="line">conv3_3 = Myconv2d(conv3_2, <span class="string">'conv3_3'</span>, is_training)</span><br><span class="line"><span class="comment"># 4 * 4</span></span><br><span class="line">pooling3 = Mypooling2d(conv3_3, <span class="string">'pool3'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flatten [None , 4 * 4 * 32] 全连接层</span></span><br><span class="line">flatten = tf.layers.flatten(pooling3)</span><br><span class="line"></span><br><span class="line">y_ = tf.layers.dense(flatten, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">loss = tf.losses.sparse_softmax_cross_entropy(labels=y, logits=y_)</span><br><span class="line">predict = tf.math.argmax(y_, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">correct_prediction = tf.equal(predict, y)</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'train_op'</span>):</span><br><span class="line">    train_op = tf.train.GradientDescentOptimizer(<span class="number">0.01</span></span><br><span class="line">).minimize(loss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># # tensorboard 日志</span></span><br><span class="line"><span class="comment"># loss_summary = tf.summary.scalar('loss', loss)</span></span><br><span class="line"><span class="comment"># accuracy_summary = tf.summary.scalar('accuracy', accuracy)</span></span><br><span class="line"><span class="comment"># source_image = (x_image + 1) * 127.5</span></span><br><span class="line"><span class="comment"># inputs_summary =tf.summary.image('inputs_image', x_image)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># merged_summary = tf.summary.merge_all()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># merged_summary_test = tf.summary.merge([loss_summary, accuracy_summary])</span></span><br><span class="line"></span><br><span class="line">train_filenames = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">    train_filenames.append(os.path.join(CIFAR_DIR, <span class="string">'data_batch_%d'</span> % i))</span><br><span class="line"></span><br><span class="line">test_filenames = [os.path.join(CIFAR_DIR, <span class="string">'test_batch'</span>)]</span><br><span class="line"></span><br><span class="line">train_data = CifarData(train_filenames, <span class="literal">True</span>)</span><br><span class="line">test_data = CifarData(test_filenames, <span class="literal">False</span>)</span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line">train_steps = <span class="number">10000</span></span><br><span class="line">test_steps = <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(train_steps):</span><br><span class="line">        batch_data, batch_labels = train_data.next_batch(batch_size)</span><br><span class="line">        loss_val, acc_val, _ = sess.run(</span><br><span class="line">            [loss, accuracy, train_op],</span><br><span class="line">            feed_dict=&#123;</span><br><span class="line">                x: batch_data,</span><br><span class="line">                y: batch_labels,</span><br><span class="line">                is_training: <span class="literal">True</span></span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'[Train] Step : %d, loss %4.5f, acc: %4.5f'</span> % (i, loss_val, acc_val))</span><br><span class="line">        all_test_acc_val = []</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">            test_batch_data, test_batch_labels = test_data.next_batch(batch_size)</span><br><span class="line">            test_acc_val = sess.run(</span><br><span class="line">                [accuracy],</span><br><span class="line">                feed_dict=&#123;</span><br><span class="line">                    x: test_batch_data,</span><br><span class="line">                    y: test_batch_labels,</span><br><span class="line">                    is_training: <span class="literal">False</span></span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">            all_test_acc_val.append(test_acc_val)</span><br><span class="line">            test_acc = np.mean(all_test_acc_val)</span><br><span class="line">            print(<span class="string">'[Test] Step: %d, acc: %4.5f'</span> % (i + <span class="number">1</span>, test_acc))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/22/Cifar-batch-normalization/" data-id="ck8p6nf0e0001cwwiau7tei4d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li></ul>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    </footer>
+  </div>
+  
+</article>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+  
+    <article id="post-Data-Enhancement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/Data-Enhancement/" class="article-date">
+  <time datetime="2019-07-22T02:08:27.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
+    </h1>
+  
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># crop</span></span><br><span class="line"><span class="comment"># resize</span></span><br><span class="line"><span class="comment"># flip</span></span><br><span class="line"><span class="comment"># brightness &amp; contrast</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.pyplot <span class="keyword">import</span> imshow</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取原图</span></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(img_decoded)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># resize 对图像进行缩放</span></span><br><span class="line"><span class="comment"># tf.image.resize_area</span></span><br><span class="line"><span class="comment"># tf.image.resize_bicubic</span></span><br><span class="line"><span class="comment"># tf.image.resize_nearest_neighbor</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">resize_img = tf.image.resize_bicubic(img_decoded, [<span class="number">804</span>,<span class="number">1200</span>])</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(resize_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">804</span>,<span class="number">1200</span>,<span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># crop 对图像进行填充/裁剪</span></span><br><span class="line"><span class="comment"># tf.image.pad_to_bounding_box</span></span><br><span class="line"><span class="comment"># tf.image.crop_to_bounding_box</span></span><br><span class="line"><span class="comment"># tf.random_crop</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">padded_img = tf.image.pad_to_bounding_box(img_decoded, <span class="number">50</span>, <span class="number">100</span>, <span class="number">500</span>, <span class="number">800</span>)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(padded_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">500</span>, <span class="number">800</span>, <span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># flip 将图片进行翻转</span></span><br><span class="line"><span class="comment"># tf.image.flip_up_down</span></span><br><span class="line"><span class="comment"># tf.image.flip_left_right</span></span><br><span class="line"><span class="comment"># tf.image.random_flip_up_down</span></span><br><span class="line"><span class="comment"># tf.image.random_flip_left_right</span></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">fliped_img = tf.image.flip_up_down(img_decoded)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(fliped_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># brightenss 改变图像光照/对比度</span></span><br><span class="line"><span class="comment"># tf.image.adjust_brightness</span></span><br><span class="line"><span class="comment"># tf.image.random_brightness</span></span><br><span class="line"><span class="comment"># tf.image.adjust_constrast</span></span><br><span class="line"><span class="comment"># tf.image.random_constrast</span></span><br><span class="line"></span><br><span class="line">name = <span class="string">'./gugong.png'</span></span><br><span class="line">img_string = tf.read_file(name)</span><br><span class="line">img_decoded = tf.image.decode_image(img_string)</span><br><span class="line"><span class="comment"># 由于tensorflow是对每一个minibatch进行处理，因此需要将图像变为4维。</span></span><br><span class="line">img_decoded = tf.reshape(img_decoded, [<span class="number">1</span>, <span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">brightness_img = tf.image.random_brightness(img_decoded, <span class="number">1</span>)</span><br><span class="line">sess = tf.Session()</span><br><span class="line">img_decoded_val = sess.run(brightness_img)</span><br><span class="line"><span class="comment"># 将图像reshape回3维</span></span><br><span class="line">img_decoded_val = img_decoded_val.reshape([<span class="number">402</span>, <span class="number">600</span>, <span class="number">3</span>])</span><br><span class="line">img_decoded_val = np.asarray(img_decoded_val, np.uint8)</span><br><span class="line">print(img_decoded_val.shape)</span><br><span class="line"></span><br><span class="line">imshow(img_decoded_val)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/22/Data-Enhancement/" data-id="ck8p6nf0i0005cwwidurreuxq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-activationfunction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/13/activationfunction/" class="article-date">
+  <time datetime="2019-07-13T02:18:17.000Z" itemprop="datePublished">2019-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/13/activationfunction/">激活函数小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="六种常用的激活函数"><a href="#六种常用的激活函数" class="headerlink" title="六种常用的激活函数"></a>六种常用的激活函数</h2><h3 id="Sigmoid函数"><a href="#Sigmoid函数" class="headerlink" title="Sigmoid函数"></a>Sigmoid函数</h3><p>fx = 1/(1+e^-x)<br><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=ba0ac7a864061d957d46303e43cf6dec/d009b3de9c82d158dfb4e7218a0a19d8bc3e426f.jpg" alt=""></p>
+<ul>
+<li>输入非常大或非常小时没有梯度、</li>
+<li>输出均值非0</li>
+<li>Exp计算复杂</li>
+<li>梯度消失<ul>
+<li>df(x)/dx  = f(x)(1-f(x))</li>
+</ul>
+</li>
+</ul>
+<h3 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h3><p>fx =tan(x)<br><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=1168842b865494ee8722081f15ce87c3/29381f30e924b8994bb77cac64061d950b7bf69f.jpg" alt=""></p>
+<ul>
+<li>依旧没有梯度</li>
+<li>输出均值是0</li>
+<li>计算复杂</li>
+</ul>
+<p>###ReLU<br>fx = max(0 , x)<br><img src="https://gss2.bdstatic.com/-fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=4d2369e667600c33f079d9ce22773632/d788d43f8794a4c25b5e4dd902f41bd5ac6e39c6.jpg" alt=""></p>
+<ul>
+<li>不饱和（梯度不会过小）</li>
+<li>计算量小</li>
+<li>收敛速度快</li>
+<li>输出均值非0</li>
+<li>Dead ReLU<ul>
+<li>一个非常大的梯度流过神经元，不会再对数据有激活现象了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky-ReLU"></a>Leaky-ReLU</h3><p>fx = max(0.01x , x)<br><img src="http://p0.ifengimg.com/pmop/2017/0701/C56E5C6FCBB36E70BA5EBC90CBD142BA320B3DF6_size19_w740_h217.jpeg" alt=""></p>
+<ul>
+<li>解决了Dead ReLU问题</li>
+</ul>
+<h3 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h3><p>fx = α（exp（x）-1）x&lt;=0 // x&gt; 0<br><img src="https://images2015.cnblogs.com/blog/1204043/201707/1204043-20170722101116183-128297671.jpg" alt=""></p>
+<ul>
+<li>均值更接近0</li>
+<li>小于0时计算量大</li>
+</ul>
+<h3 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h3><p>fx = max(w1x + b1, w2x + b2)</p>
+<ul>
+<li>ReLU的泛化版本</li>
+<li>没有dead relu</li>
+<li>参数 double</li>
+</ul>
+<h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><ul>
+<li>ReLU-小心设置learning rate</li>
+<li>不要使用sigmoid</li>
+<li>使用Leaky ReLU 、maxout、ELU</li>
+<li>可以试试Tanh ， 但是计算很复杂不要抱太大期望</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/07/hello-world/" data-id="ck8p6injt000010wiezpe89zp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/13/activationfunction/" data-id="ck8p6nf0j0008cwwi050k61zm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-inceptionnet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/12/inceptionnet/" class="article-date">
+  <time datetime="2019-07-12T02:05:35.000Z" itemprop="datePublished">2019-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/12/inceptionnet/">InceptionNet</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。<br>不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。</p>
+<h3 id="1-提出原因"><a href="#1-提出原因" class="headerlink" title="1.提出原因"></a>1.提出原因</h3><p>更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的dropout 实现了稀疏网络减少了参数，但是并没有减少计算量。</p>
+<h3 id="2-模型结构"><a href="#2-模型结构" class="headerlink" title="2.模型结构"></a>2.模型结构</h3><h4 id="v1结构"><a href="#v1结构" class="headerlink" title="v1结构"></a>v1结构</h4><ul>
+<li>分组卷积<br><img src="https://upload-images.jianshu.io/upload_images/5971313-13c125fec9698215.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp" alt=""><br>一层上同时使用多种卷积核，可以看到各种层级的feature。各组之间feature计算不相互交叉，减少计算量。</li>
+</ul>
+<h4 id="v2结构"><a href="#v2结构" class="headerlink" title="v2结构"></a>v2结构</h4><ul>
+<li>引入3×3 的视野域同等卷积替换<br><img src="https://upload-images.jianshu.io/upload_images/5971313-3f9c95bd4a20fe21.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/548/format/webp" alt="">)<img src="https://upload-images.jianshu.io/upload_images/5971313-e29363f2e4934cae.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/535/format/webp" alt=""></li>
+</ul>
+<h4 id="v3结构"><a href="#v3结构" class="headerlink" title="v3结构"></a>v3结构</h4><ul>
+<li>3×3不是最小卷积<br>引入 3×3 =1×3 和3×1 参数降低33%<br><img src="https://upload-images.jianshu.io/upload_images/5971313-29d51cefa8635548.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/618/format/webp" alt=""></li>
+</ul>
+<h4 id="v4结构"><a href="#v4结构" class="headerlink" title="v4结构"></a>v4结构</h4><ul>
+<li>引入skip connection （即残差连接）</li>
+</ul>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inception_block</span><span class="params">(x,output_channel_for_each_path,name)</span>:</span></span><br><span class="line">    <span class="string">''' inception block implementation'''</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">        -x: 输入</span></span><br><span class="line"><span class="string">        -output_channel_for_each_path: 每个组的输出</span></span><br><span class="line"><span class="string">        -name: block名称</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(name):</span><br><span class="line">        conv1_1 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">0</span>],</span><br><span class="line">                                    (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv1_1'</span></span><br><span class="line">                                    )</span><br><span class="line"></span><br><span class="line">        conv3_3 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">1</span>],</span><br><span class="line">                                    (<span class="number">3</span>,<span class="number">3</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv3_3'</span></span><br><span class="line">                                    )    </span><br><span class="line"></span><br><span class="line">        conv5_5 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">2</span>],</span><br><span class="line">                                    (<span class="number">5</span>,<span class="number">5</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv5_5'</span></span><br><span class="line">                                    )                                                  </span><br><span class="line">        max_pooling = tf.layers.max_pooling2d(x,</span><br><span class="line">                                            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">                                            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">                                            name = <span class="string">'max_pooling'</span></span><br><span class="line">                                            )</span><br><span class="line">        max_pooling_shape = max_pooling.get_shape().as_list()[<span class="number">1</span>:]</span><br><span class="line">        input_shape = x.get_shape().as_list()[<span class="number">1</span>:]</span><br><span class="line">        width_padding = (input_shape[<span class="number">0</span>] - max_pooling_shape[<span class="number">0</span>]) // <span class="number">2</span></span><br><span class="line">        height_padding = (input_shape[<span class="number">1</span>] - max_pooling_shape[<span class="number">1</span>]) // <span class="number">2</span></span><br><span class="line">        padded_pooling = tf.pad(max_pooling,</span><br><span class="line">                                [</span><br><span class="line">                                [<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">                                [width_padding,width_padding],</span><br><span class="line">                                [height_padding,height_padding],</span><br><span class="line">                                [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">                                ])</span><br><span class="line">        concat_layer = tf.concat([conv1_1,conv3_3,conv5_5,padded_pooling], axis = <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> concat_layer</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line">x_image = tf.reshape(x, [<span class="number">-1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>])</span><br><span class="line">x_image = tf.transpose(x_image, perm=[<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">conv1 = tf.layers.conv2d(x_image,<span class="number">32</span>,(<span class="number">3</span>,<span class="number">3</span>),strides = (<span class="number">1</span>,<span class="number">1</span>),padding = <span class="string">'same'</span>,activation = tf.nn.relu,name = <span class="string">'conv1'</span>)</span><br><span class="line">pooling1 = tf.layers.max_pooling2d(conv1,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling1'</span>)</span><br><span class="line">         </span><br><span class="line">inception_block1a = inception_block(pooling1,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception1'</span>)</span><br><span class="line">inception_block1b = inception_block(inception_block1a,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception2'</span>)</span><br><span class="line"></span><br><span class="line">pooling2 = tf.layers.max_pooling2d(inception_block1b,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling2'</span>)</span><br><span class="line"></span><br><span class="line">inception_block2a = inception_block(pooling2,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception3'</span>)</span><br><span class="line">inception_block2b = inception_block(inception_block2a,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception4'</span>)</span><br><span class="line"></span><br><span class="line">pooling3 = tf.layers.max_pooling2d(inception_block2b,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling3'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flatten [None , 4 * 4 * 32] 全连接层</span></span><br><span class="line">flatten = tf.layers.flatten(pooling3)</span><br><span class="line"></span><br><span class="line">y_ = tf.layers.dense(flatten, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">loss = tf.losses.sparse_softmax_cross_entropy(labels=y, logits=y_)</span><br><span class="line">predict = tf.math.argmax(y_, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">correct_prediction = tf.equal(predict, y)</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'train_op'</span>):</span><br><span class="line">    train_op = tf.train.GradientDescentOptimizer(<span class="number">0.01</span></span><br><span class="line">).minimize(loss)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/12/inceptionnet/" data-id="ck8p6nf0l000dcwwi5er9e14f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-resnet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/resnet/" class="article-date">
+  <time datetime="2019-07-09T01:39:29.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ResNet（Residual Neural Network）由微软研究院的Kaiming He等四名华人提出，通过使用ResNet Unit成功训练出了152层的神经网络，并在ILSVRC2015比赛中取得冠军，在top5上的错误率为3.57%，同时参数量比VGGNet低，效果非常突出。ResNet的结构可以极快的加速神经网络的训练，模型的准确率也有比较大的提升。同时ResNet的推广性非常好，甚至可以直接用到InceptionNet网络中。</p>
+<p>ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和Highway Network的思想也非常类似，允许原始输入信息直接传到后面的层中，如下图所示。</p>
+<h3 id="1-提出原因"><a href="#1-提出原因" class="headerlink" title="1.提出原因"></a>1.提出原因</h3><p>VGG-NET将网络加深到一定的层次，提高了学习的准确率。但是加深到更深层次后，反而准确率下降。究其原因是深层网络更难优化，而非深层网络学习不到东西。（比如说增加Y=X的网络，实际上深层和浅层学习到的东西是相同的）<br>因此有了如下的残差网络结构：<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562644527941&di=c43863b8f015b0c80b4534be6362fe59&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180630%2Fbc1a4bc7d8cb4611b869008772d192e3.jpeg" alt=""></p>
+<ul>
+<li>identity部分为恒等变换</li>
+<li>F（x）是残差学习</li>
+</ul>
+<h3 id="2-模型结构"><a href="#2-模型结构" class="headerlink" title="2.模型结构"></a>2.模型结构</h3><ul>
+<li>先用一个普通的卷积层，stride = 2</li>
+<li>再经过一个3*3的max_polling</li>
+<li>再经过残差结构</li>
+<li>没有中间的全连接层，直接到输出</li>
+</ul>
+<p>残差结构使得网络需要学习的知识变少，容易学习。<br>残差结构使得每一层的数据分布接近，容易学习。</p>
+<h3 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3.代码实现"></a>3.代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">redidual_block</span><span class="params">(x, output_channel)</span>:</span></span><br><span class="line">    <span class="string">"""redidual connection implementation"""</span></span><br><span class="line">    input_channel = x.get_shape().as_list()[<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> input_channel * <span class="number">2</span> == output_channel:</span><br><span class="line">        increase_dim = <span class="literal">True</span></span><br><span class="line">        strides = (<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">elif</span> input_channel == output_channel:</span><br><span class="line">        increase_dim = <span class="literal">False</span></span><br><span class="line">        strides = (<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"input channel can't match output channel"</span>)</span><br><span class="line">    conv1 = tf.layers.conv2d(</span><br><span class="line">        x,</span><br><span class="line">        output_channel,</span><br><span class="line">        (<span class="number">3</span>,<span class="number">3</span>),</span><br><span class="line">        strides = strides,</span><br><span class="line">        padding =<span class="string">'same'</span>,</span><br><span class="line">        activation = tf.nn.relu,</span><br><span class="line">        name = <span class="string">'conv1'</span></span><br><span class="line">    )</span><br><span class="line">    conv2 = tf.layers.conv2d(</span><br><span class="line">        conv1,</span><br><span class="line">        output_channel,</span><br><span class="line">        (<span class="number">3</span>,<span class="number">3</span>),</span><br><span class="line">        strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">        padding =<span class="string">'same'</span>,</span><br><span class="line">        activation = tf.nn.relu,</span><br><span class="line">        name = <span class="string">'conv2'</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">if</span> increase_dim:</span><br><span class="line">        pooled_x = tf.layers.average_pooling2d(</span><br><span class="line">            x,</span><br><span class="line">            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">            padding = <span class="string">'valid'</span></span><br><span class="line">        )</span><br><span class="line">        padded_x = tf.pad(</span><br><span class="line">            pooled_x,</span><br><span class="line">        [</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">            [<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">            [input_channel // <span class="number">2</span>,input_channel // <span class="number">2</span>]</span><br><span class="line">        ])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        padded_x = x</span><br><span class="line">    </span><br><span class="line">    output_x = conv2 + padded_x</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> output_x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">res_net</span><span class="params">(x,num_residual_blocks,num_filter_base,class_num)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    x: 输入数据</span></span><br><span class="line"><span class="string">    num_residual_blocks: 残差连接块数 eg:[3, 4, 6, 3]</span></span><br><span class="line"><span class="string">    num_filter_base: 最初通道数</span></span><br><span class="line"><span class="string">    class_num: 泛化不同数据集</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 降采样数</span></span><br><span class="line">    num_subsampling = len(num_residual_blocks)</span><br><span class="line">    layers = []</span><br><span class="line">    <span class="comment"># x : [None, width, height, channel] -&gt;[width, height, channel]</span></span><br><span class="line">    <span class="comment"># input_size = x.getshape().as_list()[1:]</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'conv0'</span>):</span><br><span class="line">        conv0 = tf.layers.conv2d(</span><br><span class="line">            x,</span><br><span class="line">            num_filter_base,</span><br><span class="line">            (<span class="number">3</span>,<span class="number">3</span>),</span><br><span class="line">            strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">            activation = tf.nn.relu,</span><br><span class="line">            padding = <span class="string">'same'</span>,</span><br><span class="line">            name = <span class="string">'conv0'</span></span><br><span class="line">        )</span><br><span class="line">        layers.append(conv0)</span><br><span class="line">    <span class="keyword">for</span> sample_id <span class="keyword">in</span> range(num_subsampling):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(num_residual_blocks[sample_id]):</span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'conv%d_%d'</span> % (sample_id, i)):</span><br><span class="line">                conv = redidual_block(</span><br><span class="line">                    layers[<span class="number">-1</span>],</span><br><span class="line">                    num_filter_base * (<span class="number">2</span> ** sample_id)</span><br><span class="line">                )</span><br><span class="line">                layers.append(conv)</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'fc'</span>):</span><br><span class="line">        global_pool = tf.reduce_mean(layers[<span class="number">-1</span>], [<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">        logits = tf.layers.dense(global_pool, class_num)</span><br><span class="line">        layers.append(logits)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> layers[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/09/resnet/" data-id="ck8p6nf0m000fcwwi86y803vm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-conv-network" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/06/conv-network/" class="article-date">
+  <time datetime="2019-07-06T03:09:12.000Z" itemprop="datePublished">2019-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/06/conv-network/">针对Cifar-10数据集建立的卷积神经网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line">x_image = tf.reshape(x, [<span class="number">-1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>])</span><br><span class="line">x_image = tf.transpose(x_image, perm=[<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># conv1 :神经元图， feature_map 输出图像</span></span><br><span class="line">conv1 = tf.layers.conv2d(</span><br><span class="line">    x_image,  <span class="comment"># input image,</span></span><br><span class="line">    <span class="number">32</span>,  <span class="comment"># output channel number</span></span><br><span class="line">    (<span class="number">3</span>, <span class="number">3</span>),  <span class="comment"># kernel size</span></span><br><span class="line">    padding=<span class="string">'same'</span>,  <span class="comment"># padding type</span></span><br><span class="line">    activation=tf.nn.relu,</span><br><span class="line">    name=<span class="string">'conv1'</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># polling1 16 * 16</span></span><br><span class="line">polling1 = tf.layers.max_pooling2d(</span><br><span class="line">    conv1,  <span class="comment"># input image,</span></span><br><span class="line">    (<span class="number">2</span>, <span class="number">2</span>),  <span class="comment"># kernel size,</span></span><br><span class="line">    (<span class="number">2</span>, <span class="number">2</span>),  <span class="comment"># stride</span></span><br><span class="line">    name=<span class="string">'pool1'</span></span><br><span class="line">)</span><br><span class="line">conv2 = tf.layers.conv2d(</span><br><span class="line">    polling1,</span><br><span class="line">    <span class="number">32</span>,  <span class="comment"># output channel number</span></span><br><span class="line">    (<span class="number">3</span>, <span class="number">3</span>),  <span class="comment"># kernel size</span></span><br><span class="line">    padding=<span class="string">'same'</span>,  <span class="comment"># padding type</span></span><br><span class="line">    activation=tf.nn.relu,</span><br><span class="line">    name=<span class="string">'conv2'</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 8 * 8</span></span><br><span class="line">polling2 = tf.layers.max_pooling2d(</span><br><span class="line">    conv2,  <span class="comment"># input image,</span></span><br><span class="line">    (<span class="number">2</span>, <span class="number">2</span>),  <span class="comment"># kernel size,</span></span><br><span class="line">    (<span class="number">2</span>, <span class="number">2</span>),  <span class="comment"># stride</span></span><br><span class="line">    name=<span class="string">'pool2'</span></span><br><span class="line">)</span><br><span class="line">conv3 = tf.layers.conv2d(</span><br><span class="line">    polling2,</span><br><span class="line">    <span class="number">32</span>,  <span class="comment"># output channel number</span></span><br><span class="line">    (<span class="number">3</span>, <span class="number">3</span>),  <span class="comment"># kernel size</span></span><br><span class="line">    padding=<span class="string">'same'</span>,  <span class="comment"># padding type</span></span><br><span class="line">    activation=tf.nn.relu,</span><br><span class="line">    name=<span class="string">'conv3'</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># 4 * 4</span></span><br><span class="line">polling3 = tf.layers.max_pooling2d(</span><br><span class="line">    conv3,  <span class="comment"># input image,</span></span><br><span class="line">    (<span class="number">2</span>, <span class="number">2</span>),  <span class="comment"># kernel size,</span></span><br><span class="line">    (<span class="number">2</span>, <span class="number">2</span>),  <span class="comment"># stride</span></span><br><span class="line">    name=<span class="string">'pool3'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flatten [None , 4 * 4 * 32] 全连接层</span></span><br><span class="line">flatten = tf.layers.flatten(polling3)</span><br><span class="line">y_ = tf.layers.dense(flatten, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/06/conv-network/" data-id="ck8p6nf0n000hcwwi43rl4nvf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-cnn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/06/cnn/" class="article-date">
+  <time datetime="2019-07-06T00:44:55.000Z" itemprop="datePublished">2019-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/06/cnn/">卷积神经网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、卷积"><a href="#一、卷积" class="headerlink" title="一、卷积"></a>一、卷积</h2><p>对于普通神经网络来说，每层神经元的输入，即是上一层神经元的输出。<br>假设一张图片为1000×1000,就会出现1000×1000个参数<br>若下一层神经元个数为10^6个<br>全连接参数为1000×1000×10^6 =10^12个<br>这个参数量是非常大的，这样处理不仅会增加训练时计算机的负担，<br>由于参数量过大，其模型表达能力也非常强。虽然在训练集上效果极佳，但是在训练集上测试效果较差。<br>即出现过拟合问题。<br>因此，我们使用了卷积操作来解决这个问题。</p>
+<h3 id="输入图像："><a href="#输入图像：" class="headerlink" title="输入图像："></a>输入图像：</h3><table>
+<thead>
+<tr>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">12</td>
+<td align="center">13</td>
+<td align="center">14</td>
+<td align="center">15</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="center">17</td>
+<td align="center">18</td>
+<td align="center">19</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td align="center">22</td>
+<td align="center">23</td>
+<td align="center">24</td>
+<td align="center">25</td>
+</tr>
+<tr>
+<td align="center">### 卷积核：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">:————:</td>
+<td align="center">:————:</td>
+<td align="center">:————:</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">### 输出：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">35</td>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">:————:</td>
+<td align="center">:————:</td>
+<td align="center">:————:</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="center">？</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">卷积核在输入图像上滑动并进行点积运算，得到卷积后的图像。</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">其滑动长度叫做步长</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><div style=color:red;font-size:20px>输出size=输入size-卷积核size+1</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>显然，每次卷积会使图像size变小，在CNN中可能有不只一层卷积层。如果图像本身较小，很有可能经过多次卷积操作使图像变为1×1的像素点。这样对描述图片的特征是很不直观的。</p>
+<p>因此我们可以使用一种padding操作，在输入图像周围加入值为0的像素点。</p>
+<table>
+<thead>
+<tr>
+<th align="center">0</th>
+<th align="center">0</th>
+<th align="center">0</th>
+<th align="center">0</th>
+<th align="center">0</th>
+<th align="center">0</th>
+<th align="center">0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>当然加入几层padding和卷积核的大小有关，进行合适的处理即能够使输入和输出的size相同。</p>
+<p>对于多通道图片，我们将卷积核也变为多通道即可。不通通道图片上卷积参数并不共享，多个通道卷积之后的相应位置像素相加作为最后的输出（activation maps）。</p>
+<p>同样，通过多个卷积核，能够产生多通道输出，提取出不同的特征。</p>
+<h2 id="二、激活函数"><a href="#二、激活函数" class="headerlink" title="二、激活函数"></a>二、激活函数</h2><p>Sigmoid=1/1+e^-x<br>tanh=tanh（x）<br>ReLU=max(0,x)<br>Leaky ReLU=max(0.1x,x)<br>Maxout<br>ELU 等</p>
+<p>对于卷积神经网络来说，常用的激活函数为ReLU函数。</p>
+<table>
+<thead>
+<tr>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">-2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-10</td>
+<td align="center">0</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">-1</td>
+<td align="center">7</td>
+</tr>
+</tbody></table>
+<p>ReLU激活后-&gt;</p>
+<table>
+<thead>
+<tr>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">0</td>
+<td align="center">7</td>
+</tr>
+</tbody></table>
+<h3 id="卷积-Summary"><a href="#卷积-Summary" class="headerlink" title="卷积-Summary"></a>卷积-Summary</h3><ul>
+<li>P = 边距（padding）</li>
+<li>S = 步长（stride）</li>
+<li>输出Size =（n-p）/s + 1</li>
+<li>参数数目 = kw × kh × Ci × Co<ul>
+<li>Ci:输出通道数</li>
+<li>Co:输出通道数</li>
+<li>Kw,Kh:卷积核长宽</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、池化"><a href="#三、池化" class="headerlink" title="三、池化"></a>三、池化</h2><ul>
+<li><h5 id="常使用不重叠、不补零"><a href="#常使用不重叠、不补零" class="headerlink" title="常使用不重叠、不补零"></a>常使用不重叠、不补零</h5></li>
+<li><h5 id="没有用于求导的参数"><a href="#没有用于求导的参数" class="headerlink" title="没有用于求导的参数"></a>没有用于求导的参数</h5></li>
+<li><h5 id="池化层的参数为步长和池化核的大小"><a href="#池化层的参数为步长和池化核的大小" class="headerlink" title="池化层的参数为步长和池化核的大小"></a>池化层的参数为步长和池化核的大小</h5></li>
+<li><h5 id="池化用于减少图像尺寸，从而减少计算量"><a href="#池化用于减少图像尺寸，从而减少计算量" class="headerlink" title="池化用于减少图像尺寸，从而减少计算量"></a>池化用于减少图像尺寸，从而减少计算量</h5></li>
+<li><h5 id="一定程度解决平移鲁棒"><a href="#一定程度解决平移鲁棒" class="headerlink" title="一定程度解决平移鲁棒"></a>一定程度解决平移鲁棒</h5></li>
+<li><h5 id="一定程度上损失空间位置精度"><a href="#一定程度上损失空间位置精度" class="headerlink" title="一定程度上损失空间位置精度"></a>一定程度上损失空间位置精度</h5></li>
+</ul>
+<h3 id="输入图像：-1"><a href="#输入图像：-1" class="headerlink" title="输入图像："></a>输入图像：</h3><table>
+<thead>
+<tr>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">12</td>
+<td align="center">13</td>
+<td align="center">14</td>
+<td align="center">15</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="center">17</td>
+<td align="center">18</td>
+<td align="center">19</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td align="center">22</td>
+<td align="center">23</td>
+<td align="center">24</td>
+<td align="center">25</td>
+</tr>
+<tr>
+<td align="center">Max-pool操作</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Stride = 2</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Kernel_size = 2 * 2</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">### 输出：</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">:————:</td>
+<td align="center">:————:</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="center">19</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>Avg-pool操作<br>Stride = 2<br>Kernel_size = 2 * 2</p>
+<h3 id="输出："><a href="#输出：" class="headerlink" title="输出："></a>输出：</h3><table>
+<thead>
+<tr>
+<th align="center">4</th>
+<th align="center">6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">14</td>
+<td align="center">16</td>
+</tr>
+</tbody></table>
+<h2 id="四、全连接层"><a href="#四、全连接层" class="headerlink" title="四、全连接层"></a>四、全连接层</h2><h4 id="将上一层的输出展开并连接到每一个神经元上"><a href="#将上一层的输出展开并连接到每一个神经元上" class="headerlink" title="将上一层的输出展开并连接到每一个神经元上"></a>将上一层的输出展开并连接到每一个神经元上</h4><h4 id="即普通神经网络层"><a href="#即普通神经网络层" class="headerlink" title="即普通神经网络层"></a>即普通神经网络层</h4><h4 id="相比于卷积层，参数数目较大"><a href="#相比于卷积层，参数数目较大" class="headerlink" title="相比于卷积层，参数数目较大"></a>相比于卷积层，参数数目较大</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/06/cnn/" data-id="ck8p6nf0k000acwwi8vktcqso" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SGD-Momentum" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/SGD-Momentum/" class="article-date">
+  <time datetime="2019-07-05T03:27:11.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/SGD-Momentum/">梯度下降问题处理以及算法优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、普通梯度下降训练优化"><a href="#一、普通梯度下降训练优化" class="headerlink" title="一、普通梯度下降训练优化"></a>一、普通梯度下降训练优化</h2><ul>
+<li><h3 id="每次都在整个数据及上计算Loss和梯度"><a href="#每次都在整个数据及上计算Loss和梯度" class="headerlink" title="每次都在整个数据及上计算Loss和梯度"></a>每次都在整个数据及上计算Loss和梯度</h3><ul>
+<li>计算量大</li>
+<li>可能内存承载不住</li>
+</ul>
+</li>
+<li><h3 id="梯度方向确定的时候，仍然是每次都走一个单位步长"><a href="#梯度方向确定的时候，仍然是每次都走一个单位步长" class="headerlink" title="梯度方向确定的时候，仍然是每次都走一个单位步长"></a>梯度方向确定的时候，仍然是每次都走一个单位步长</h3><ul>
+<li>太慢<div style=color:red;font-size:30px>那么应当怎么样优化呢? 这里提出了两种方法供使用。</li>
+</ul>
+</li>
+<li>####①. 随机梯度下降<br>   每次只使用一个样本</li>
+<li>####②. Mini-Batch梯度下降<br>   每次使用小部分数据进行训练，同时对数据进行shuffle加快模型收敛，并防止过拟合问题的出现。</li>
+</ul>
+<p>利用Mini-Batch梯度下降算法同样是存在问题的，如下图所示的震荡问题。<br><img src="http://s11.sinaimg.cn/bmiddle/002xJJk2zy7jUyNhVmW3a&690" alt=""></p>
+<p>同样，由于普通的梯度下降算法中学习率*当前位置导数的算式，在当梯度下降过程中遇到局部极值点或者鞍点（saddle point）时，该点导数为0。则不论参数α为何值，梯度下降的参数恒为0。这样使得梯度下降无法继续进行下去而停留在当前点上。</p>
+<h2 id="二、动量梯度下降算法"><a href="#二、动量梯度下降算法" class="headerlink" title="二、动量梯度下降算法"></a>二、动量梯度下降算法</h2><ul>
+<li><h3 id="普通梯度下降-SGD"><a href="#普通梯度下降-SGD" class="headerlink" title="普通梯度下降 SGD"></a>普通梯度下降 SGD</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	dx = compute_gradient(x)</span><br><span class="line">	x += learning_rate * dx</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="动量梯度下降-SGD-Momentum"><a href="#动量梯度下降-SGD-Momentum" class="headerlink" title="动量梯度下降 SGD+Momentum"></a>动量梯度下降 SGD+Momentum</h3><p>将每次的梯度乘上一个参数，进行每次梯度的积累。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vx = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">	dx = compute_gradient(x)</span><br><span class="line">	vx = rho * vx + dx</span><br><span class="line">	x += learning_rate * vx</span><br></pre></td></tr></table></figure>
+
+<p>  ####特点：</p>
+<ul>
+<li>开始训练时，积累动量，加速训练</li>
+<li>局部极值附近震荡时，梯度为0，由于动量，跳出陷阱</li>
+<li>梯度改变方向的时候，动量缓解震荡</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/SGD-Momentum/" data-id="ck8p6nf0h0004cwwidcgbe08c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Cifar-10-instance-10" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/Cifar-10-instance-10/" class="article-date">
+  <time datetime="2019-07-05T02:07:41.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/Cifar-10-instance-10/">神经网络实现-------多分类Logistic回归模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">CIFAR_DIR = <span class="string">"cifar-10-batches-py"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用pickle读取数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = pickle.load(f, encoding=<span class="string">'iso-8859-1'</span>)</span><br><span class="line">        <span class="keyword">return</span> data[<span class="string">'data'</span>], data[<span class="string">'labels'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Cifar数据处理类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CifarData</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filenames, need_shuffle)</span>:</span></span><br><span class="line">        all_data = []</span><br><span class="line">        all_labels = []</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> filenames:</span><br><span class="line">            data, labels = load_data(filename)</span><br><span class="line">            <span class="keyword">for</span> item, label <span class="keyword">in</span> zip(data, labels):</span><br><span class="line">                <span class="comment"># 去除只取0，1类的 filter</span></span><br><span class="line">                all_data.append(item)</span><br><span class="line">                all_labels.append(label)</span><br><span class="line">        self._data = np.vstack(all_data)</span><br><span class="line">        <span class="comment"># 数据归一化（？</span></span><br><span class="line">        self._data = self._data / <span class="number">127.5</span> - <span class="number">1</span></span><br><span class="line">        self._labels = np.hstack(all_labels)</span><br><span class="line">        self._num_examples = self._data.shape[<span class="number">0</span>]</span><br><span class="line">        self._need_shuffle = need_shuffle</span><br><span class="line">        self._indicator = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> self._need_shuffle:</span><br><span class="line">            self._shuffle_data()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 讲训练数据打乱 避免过拟合</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_shuffle_data</span><span class="params">(self)</span>:</span></span><br><span class="line">        p = np.random.permutation(self._num_examples)</span><br><span class="line">        self._data = self._data[p]</span><br><span class="line">        self._labels = self._labels[p]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next_batch</span><span class="params">(self, batch_size)</span>:</span></span><br><span class="line">        end_indicator = self._indicator + batch_size</span><br><span class="line">        <span class="keyword">if</span> end_indicator &gt; self._num_examples:</span><br><span class="line">            <span class="keyword">if</span> self._need_shuffle:</span><br><span class="line">                self._shuffle_data()</span><br><span class="line">                self._indicator = <span class="number">0</span></span><br><span class="line">                end_indicator = batch_size</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">"have no more examples"</span>)</span><br><span class="line">        <span class="keyword">if</span> end_indicator &gt; self._num_examples:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"batch size is larger than all examples"</span>)</span><br><span class="line">        batch_data = self._data[self._indicator: end_indicator]</span><br><span class="line">        batch_labels = self._labels[self._indicator: end_indicator]</span><br><span class="line">        self._indicator = end_indicator</span><br><span class="line">        <span class="keyword">return</span> batch_data, batch_labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据测试</span></span><br><span class="line"><span class="comment"># train_filenames = []</span></span><br><span class="line"><span class="comment"># test_filenames = [os.path.join(CIFAR_DIR, 'test_batch')]</span></span><br><span class="line"><span class="comment"># for i in range(1, 6):</span></span><br><span class="line"><span class="comment">#     train_filenames.append(os.path.join(CIFAR_DIR, 'data_batch_%d' % i))</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># train_data = CifarData(train_filenames, True)</span></span><br><span class="line"><span class="comment"># test_data = CifarData(test_filenames, False)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># batch_data, batch_labels = train_data.next_batch(20)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(batch_data)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(batch_labels)</span></span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单个神经元定义</span></span><br><span class="line"><span class="comment"># (3072 , 10)</span></span><br><span class="line">w = tf.get_variable(<span class="string">'w'</span>, [x.get_shape()[<span class="number">-1</span>], <span class="number">10</span>],</span><br><span class="line">                    initializer=tf.random_normal_initializer(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># (10, )</span></span><br><span class="line">b = tf.get_variable(<span class="string">'b'</span>, [<span class="number">10</span>], initializer=tf.constant_initializer(<span class="number">0.0</span>))</span><br><span class="line"><span class="comment"># [None, 3072] * [3072, 10] = [None, 10]</span></span><br><span class="line">y_ = tf.matmul(x, w) + b</span><br><span class="line"></span><br><span class="line"><span class="comment"># [None, 10] softmax处理多输出神经网络</span></span><br><span class="line"><span class="comment"># mean square loss</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">p_y_1 = tf.nn.softmax(y_)</span></span><br><span class="line"><span class="string">y_one_hot = tf.one_hot(y, 10, dtype=tf.float32)</span></span><br><span class="line"><span class="string">loss = tf.reduce_mean(tf.square(y_one_hot - p_y_1))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment"># cross_entropy loss</span></span><br><span class="line">loss = tf.losses.sparse_softmax_cross_entropy(labels=y, logits=y_)</span><br><span class="line"><span class="comment"># y_ -&gt; softmax</span></span><br><span class="line"><span class="comment"># y -&gt; onehot</span></span><br><span class="line"><span class="comment"># loss = ylogy_</span></span><br><span class="line">predict = tf.math.argmax(y_, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">correct_prediction = tf.equal(predict, y)</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'train_op'</span>):</span><br><span class="line">    train_op = tf.train.AdamOptimizer(<span class="number">1e-3</span>).minimize(loss)</span><br><span class="line">train_filenames = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">    train_filenames.append(os.path.join(CIFAR_DIR, <span class="string">'data_batch_%d'</span> % i))</span><br><span class="line">test_filenames = [os.path.join(CIFAR_DIR, <span class="string">'test_batch'</span>)]</span><br><span class="line">train_data = CifarData(train_filenames, <span class="literal">True</span>)</span><br><span class="line">test_data = CifarData(test_filenames, <span class="literal">False</span>)</span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line">train_steps = <span class="number">10000</span></span><br><span class="line">test_steps = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(train_steps):</span><br><span class="line">        batch_data, batch_labels = train_data.next_batch(batch_size)</span><br><span class="line">        loss_val, acc_val, _ = sess.run(</span><br><span class="line">            [loss, accuracy, train_op],</span><br><span class="line">            feed_dict=&#123;</span><br><span class="line">                x: batch_data,</span><br><span class="line">                y: batch_labels</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'[Train] Step : %d, loss %4.5f, acc: %4.5f'</span> % (i, loss_val, acc_val))</span><br><span class="line">        all_test_acc_val = []</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">5000</span> == <span class="number">0</span>:</span><br><span class="line">            test_batch_data, test_batch_labels = test_data.next_batch(batch_size)</span><br><span class="line">            test_acc_val = sess.run(</span><br><span class="line">                [accuracy],</span><br><span class="line">                feed_dict=&#123;</span><br><span class="line">                    x: test_batch_data,</span><br><span class="line">                    y: test_batch_labels</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">            all_test_acc_val.append(test_acc_val)</span><br><span class="line">            test_acc = np.mean(all_test_acc_val)</span><br><span class="line">            print(<span class="string">'[Test] Step: %d, acc: %4.5f'</span> % (i + <span class="number">1</span>, test_acc))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/Cifar-10-instance-10/" data-id="ck8p6nf090000cwwi53pn6qxf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Cifar-10-instance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/Cifar-10-instance/" class="article-date">
+  <time datetime="2019-07-05T00:34:31.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/Cifar-10-instance/">神经元实现---二分类Logistic回归模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">CIFAR_DIR = <span class="string">"cifar-10-batches-py"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用pickle读取数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_data</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = pickle.load(f, encoding=<span class="string">'iso-8859-1'</span>)</span><br><span class="line">        <span class="keyword">return</span> data[<span class="string">'data'</span>], data[<span class="string">'labels'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Cifar数据处理类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CifarData</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filenames, need_shuffle)</span>:</span></span><br><span class="line">        all_data = []</span><br><span class="line">        all_labels = []</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> filenames:</span><br><span class="line">            data, labels = load_data(filename)</span><br><span class="line">            <span class="keyword">for</span> item, label <span class="keyword">in</span> zip(data, labels):</span><br><span class="line">                <span class="keyword">if</span> label <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]:</span><br><span class="line">                    all_data.append(item)</span><br><span class="line">                    all_labels.append(label)</span><br><span class="line">        self._data = np.vstack(all_data)</span><br><span class="line">        self._data = self._data / <span class="number">127.5</span> - <span class="number">1</span></span><br><span class="line">        self._labels = np.hstack(all_labels)</span><br><span class="line">        self._num_examples = self._data.shape[<span class="number">0</span>]</span><br><span class="line">        self._need_shuffle = need_shuffle</span><br><span class="line">        self._indicator = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> self._need_shuffle:</span><br><span class="line">            self._shuffle_data()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_shuffle_data</span><span class="params">(self)</span>:</span></span><br><span class="line">        p = np.random.permutation(self._num_examples)</span><br><span class="line">        self._data = self._data[p]</span><br><span class="line">        self._labels = self._labels[p]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next_batch</span><span class="params">(self, batch_size)</span>:</span></span><br><span class="line">        end_indicator = self._indicator + batch_size</span><br><span class="line">        <span class="keyword">if</span> end_indicator &gt; self._num_examples:</span><br><span class="line">            <span class="keyword">if</span> self._need_shuffle:</span><br><span class="line">                self._shuffle_data()</span><br><span class="line">                self._indicator = <span class="number">0</span></span><br><span class="line">                end_indicator = batch_size</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">raise</span> Exception(<span class="string">"have no more examples"</span>)</span><br><span class="line">        <span class="keyword">if</span> end_indicator &gt; self._num_examples:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"batch size is larger than all examples"</span>)</span><br><span class="line">        batch_data = self._data[self._indicator: end_indicator]</span><br><span class="line">        batch_labels = self._labels[self._indicator: end_indicator]</span><br><span class="line">        self._indicator = end_indicator</span><br><span class="line">        <span class="keyword">return</span> batch_data, batch_labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据测试</span></span><br><span class="line"><span class="comment"># train_filenames = []</span></span><br><span class="line"><span class="comment"># test_filenames = [os.path.join(CIFAR_DIR, 'test_batch')]</span></span><br><span class="line"><span class="comment"># for i in range(1, 6):</span></span><br><span class="line"><span class="comment">#     train_filenames.append(os.path.join(CIFAR_DIR, 'data_batch_%d' % i))</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># train_data = CifarData(train_filenames, True)</span></span><br><span class="line"><span class="comment"># test_data = CifarData(test_filenames, False)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># batch_data, batch_labels = train_data.next_batch(20)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(batch_data)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(batch_labels)</span></span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单个神经元定义</span></span><br><span class="line"><span class="comment"># (3072 , 1)</span></span><br><span class="line">w = tf.get_variable(<span class="string">'w'</span>, [x.get_shape()[<span class="number">-1</span>], <span class="number">1</span>],</span><br><span class="line">                    initializer=tf.random_normal_initializer(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># (1, )</span></span><br><span class="line">b = tf.get_variable(<span class="string">'b'</span>, [<span class="number">1</span>], initializer=tf.constant_initializer(<span class="number">0.0</span>))</span><br><span class="line"><span class="comment"># [None, 3072] * [3072, 1] = [None, 1]</span></span><br><span class="line">y_ = tf.matmul(x, w) + b</span><br><span class="line"></span><br><span class="line"><span class="comment"># [None, 1] 利用sigmoid函数预测概率</span></span><br><span class="line">p_y_1 = tf.nn.sigmoid(y_)</span><br><span class="line"></span><br><span class="line"><span class="comment"># [None ,1]</span></span><br><span class="line">y_reshaped = tf.reshape(y, (<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line">y_reshaped_float = tf.cast(y_reshaped, tf.float32)</span><br><span class="line"></span><br><span class="line">loss = tf.reduce_mean(tf.square(y_reshaped_float - p_y_1))</span><br><span class="line"></span><br><span class="line"><span class="comment"># bool</span></span><br><span class="line">predict = p_y_1 &gt; <span class="number">0.5</span></span><br><span class="line">correct_prediction = tf.equal(tf.cast(predict, tf.int64), y_reshaped)</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'train_op'</span>):</span><br><span class="line">    train_op = tf.train.AdamOptimizer(<span class="number">1e-3</span>).minimize(loss)</span><br><span class="line"></span><br><span class="line">train_filenames = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">    train_filenames.append(os.path.join(CIFAR_DIR, <span class="string">'data_batch_%d'</span> % i))</span><br><span class="line">test_filenames = [os.path.join(CIFAR_DIR, <span class="string">'test_batch'</span>)]</span><br><span class="line">train_data = CifarData(train_filenames, <span class="literal">True</span>)</span><br><span class="line">test_data = CifarData(test_filenames, <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line">train_steps = <span class="number">100000</span></span><br><span class="line">test_steps = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(train_steps):</span><br><span class="line">        batch_data, batch_labels = train_data.next_batch(batch_size)</span><br><span class="line">        loss_val, acc_val, _ = sess.run(</span><br><span class="line">            [loss, accuracy, train_op],</span><br><span class="line">            feed_dict=&#123;</span><br><span class="line">                x: batch_data,</span><br><span class="line">                y: batch_labels</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'[Train] Step : %d, loss %4.5f, acc: %4.5f'</span> % (i, loss_val, acc_val))</span><br><span class="line">        all_test_acc_val = []</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">5000</span> == <span class="number">0</span>:</span><br><span class="line">            test_batch_data, test_batch_labels = test_data.next_batch(batch_size)</span><br><span class="line">            test_acc_val = sess.run(</span><br><span class="line">                [accuracy],</span><br><span class="line">                feed_dict=&#123;</span><br><span class="line">                    x: test_batch_data,</span><br><span class="line">                    y: test_batch_labels</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">            all_test_acc_val.append(test_acc_val)</span><br><span class="line">            test_acc = np.mean(all_test_acc_val)</span><br><span class="line">            print(<span class="string">'[Test] Step: %d, acc: %4.5f'</span> % (i + <span class="number">1</span>, test_acc))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/Cifar-10-instance/" data-id="ck8p6nf0h0003cwwihpidfu3w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -115,6 +908,11 @@
   
 
 
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
+
 </section>
         
           <aside id="sidebar">
@@ -123,15 +921,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/deep-learning/" style="font-size: 20px;">deep learning</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
     </div>
   </div>
 
@@ -144,7 +956,23 @@
       <ul>
         
           <li>
-            <a href="/2020/04/07/hello-world/">Hello World</a>
+            <a href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/activationfunction/">激活函数小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/inceptionnet/">InceptionNet</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
           </li>
         
       </ul>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-neuralnetwork1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/03/neuralnetwork1/" class="article-date">
+  <time datetime="2019-07-03T14:32:44.000Z" itemprop="datePublished">2019-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/03/neuralnetwork1/">神经元和Logistic回归模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、神经元——最小的神经网络"><a href="#一、神经元——最小的神经网络" class="headerlink" title="一、神经元——最小的神经网络"></a>一、神经元——最小的神经网络</h2><p><img src="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike72%2C5%2C5%2C72%2C24/sign=e682c3ae76094b36cf9f13bfc2a517bc/5366d0160924ab184004dc4635fae6cd7b890bb4.jpg" alt=""><br>其中的w叫做权重，通过神经元的函数叫做激活函数。<br>x则是具体问题中抽取出来的特征，即会影响待分析问题的关键因素。因此，w即是每个不同的特征在待解决问题中的重要程度。<br>b则是偏置，即分类线\分类面与坐标轴焦点的值。偏置的存在是为了更好地进行数据的拟合。</p>
+<h2 id="二、Logistic回归模型"><a href="#二、Logistic回归模型" class="headerlink" title="二、Logistic回归模型"></a>二、Logistic回归模型</h2><p>神经元→sigmoid激活函数→二分类Logistic回归模型</p>
+<ul>
+<li><h4 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h4><p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D99/sign=a46bd6f1dd33c895a27e9472d01340df/0df3d7ca7bcb0a4659502a5f6f63f6246b60af62.jpg" alt=""><br><img src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=dc4b35fe37a85edffe8cf921795509d8/c9fcc3cec3fdfc03f23fbf16d73f8794a5c226dc.jpg" alt=""></p>
+</li>
+<li><h4 id="Logistic二分类回归模型"><a href="#Logistic二分类回归模型" class="headerlink" title="Logistic二分类回归模型"></a>Logistic二分类回归模型</h4><p>P(Y = 0|x) =s(x)<br>P(Y = 1|x) =1 - s(x)<br>通过这两个公式很容易得出由sigmoid函数的特性很容易便可以处理二分类问题。</p>
+</li>
+<li><h4 id="Logistic多分类回归模型"><a href="#Logistic多分类回归模型" class="headerlink" title="Logistic多分类回归模型"></a>Logistic多分类回归模型</h4><p>神经元→多输出→多分类Logistic模型</p>
+<ul>
+<li>w从向量扩展为矩阵</li>
+<li>输出W*x则变成向量</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li><h5 id="X-3-1-2"><a href="#X-3-1-2" class="headerlink" title="X =[3,1,2]"></a>X =[3,1,2]</h5></li>
+<li><h5 id="W-0-4-0-6-0-5-0-3-0-2-0-1"><a href="#W-0-4-0-6-0-5-0-3-0-2-0-1" class="headerlink" title="W =[[0.4,0.6,0.5],[0.3,0.2,0.1]]"></a>W =[[0.4,0.6,0.5],[0.3,0.2,0.1]]</h5></li>
+</ul>
+<p>那么：</p>
+<ul>
+<li><h5 id="Y-y0-y1-2-8-1-3"><a href="#Y-y0-y1-2-8-1-3" class="headerlink" title="Y=[y0,y1] = [2.8,1.3]"></a>Y=[y0,y1] = [2.8,1.3]</h5></li>
+<li><h5 id="Y0-W-0-X-2-8"><a href="#Y0-W-0-X-2-8" class="headerlink" title="Y0 =W[0]*X = 2.8"></a>Y0 =W[0]*X = 2.8</h5></li>
+<li><h5 id="Y1-W-1-X-1-3"><a href="#Y1-W-1-X-1-3" class="headerlink" title="Y1 =W[1]*X = 1.3"></a>Y1 =W[1]*X = 1.3</h5></li>
+</ul>
+<p>同样可以进行对W的扩展，得到多输出的神经元</p>
+<p>多输出神经元→softmax→多分类Logistic回归模型</p>
+<h5 id="P-Y-0-x-s-x-frac-1-1-e-w-Tx"><a href="#P-Y-0-x-s-x-frac-1-1-e-w-Tx" class="headerlink" title="P(Y = 0|x) =s(x) = \frac{1}{1+e^{-w^Tx}}"></a>P(Y = 0|x) =s(x) = \frac{1}{1+e^{-w^Tx}}</h5><h5 id="Y-1-x-1-s-x-frac-e-w-Tx-1-e-w-Tx"><a href="#Y-1-x-1-s-x-frac-e-w-Tx-1-e-w-Tx" class="headerlink" title="(Y = 1|x) =1 - s(x) = \frac{e^{-w^Tx}}{1+e^{-w^Tx}}"></a>(Y = 1|x) =1 - s(x) = \frac{e^{-w^Tx}}{1+e^{-w^Tx}}</h5></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/03/neuralnetwork1/" data-id="ck8p6nf0o000kcwwihg9b00gx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/deep-learning/" style="font-size: 20px;">deep learning</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/activationfunction/">激活函数小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/inceptionnet/">InceptionNet</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

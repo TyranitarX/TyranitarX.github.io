@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>InceptionNet | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。 1.提出原因更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InceptionNet">
+<meta property="og:url" content="http://yoursite.com/2019/07/12/inceptionnet/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。 1.提出原因更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5971313-13c125fec9698215.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5971313-3f9c95bd4a20fe21.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/548/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5971313-e29363f2e4934cae.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/535/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5971313-29d51cefa8635548.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/618/format/webp">
+<meta property="article:published_time" content="2019-07-12T02:05:35.000Z">
+<meta property="article:modified_time" content="2019-07-13T01:07:06.323Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="deep learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5971313-13c125fec9698215.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-inceptionnet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/12/inceptionnet/" class="article-date">
+  <time datetime="2019-07-12T02:05:35.000Z" itemprop="datePublished">2019-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      InceptionNet
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。<br>不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。</p>
+<h3 id="1-提出原因"><a href="#1-提出原因" class="headerlink" title="1.提出原因"></a>1.提出原因</h3><p>更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的dropout 实现了稀疏网络减少了参数，但是并没有减少计算量。</p>
+<h3 id="2-模型结构"><a href="#2-模型结构" class="headerlink" title="2.模型结构"></a>2.模型结构</h3><h4 id="v1结构"><a href="#v1结构" class="headerlink" title="v1结构"></a>v1结构</h4><ul>
+<li>分组卷积<br><img src="https://upload-images.jianshu.io/upload_images/5971313-13c125fec9698215.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp" alt=""><br>一层上同时使用多种卷积核，可以看到各种层级的feature。各组之间feature计算不相互交叉，减少计算量。</li>
+</ul>
+<h4 id="v2结构"><a href="#v2结构" class="headerlink" title="v2结构"></a>v2结构</h4><ul>
+<li>引入3×3 的视野域同等卷积替换<br><img src="https://upload-images.jianshu.io/upload_images/5971313-3f9c95bd4a20fe21.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/548/format/webp" alt="">)<img src="https://upload-images.jianshu.io/upload_images/5971313-e29363f2e4934cae.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/535/format/webp" alt=""></li>
+</ul>
+<h4 id="v3结构"><a href="#v3结构" class="headerlink" title="v3结构"></a>v3结构</h4><ul>
+<li>3×3不是最小卷积<br>引入 3×3 =1×3 和3×1 参数降低33%<br><img src="https://upload-images.jianshu.io/upload_images/5971313-29d51cefa8635548.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/618/format/webp" alt=""></li>
+</ul>
+<h4 id="v4结构"><a href="#v4结构" class="headerlink" title="v4结构"></a>v4结构</h4><ul>
+<li>引入skip connection （即残差连接）</li>
+</ul>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inception_block</span><span class="params">(x,output_channel_for_each_path,name)</span>:</span></span><br><span class="line">    <span class="string">''' inception block implementation'''</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">        -x: 输入</span></span><br><span class="line"><span class="string">        -output_channel_for_each_path: 每个组的输出</span></span><br><span class="line"><span class="string">        -name: block名称</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(name):</span><br><span class="line">        conv1_1 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">0</span>],</span><br><span class="line">                                    (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv1_1'</span></span><br><span class="line">                                    )</span><br><span class="line"></span><br><span class="line">        conv3_3 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">1</span>],</span><br><span class="line">                                    (<span class="number">3</span>,<span class="number">3</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv3_3'</span></span><br><span class="line">                                    )    </span><br><span class="line"></span><br><span class="line">        conv5_5 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">2</span>],</span><br><span class="line">                                    (<span class="number">5</span>,<span class="number">5</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv5_5'</span></span><br><span class="line">                                    )                                                  </span><br><span class="line">        max_pooling = tf.layers.max_pooling2d(x,</span><br><span class="line">                                            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">                                            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">                                            name = <span class="string">'max_pooling'</span></span><br><span class="line">                                            )</span><br><span class="line">        max_pooling_shape = max_pooling.get_shape().as_list()[<span class="number">1</span>:]</span><br><span class="line">        input_shape = x.get_shape().as_list()[<span class="number">1</span>:]</span><br><span class="line">        width_padding = (input_shape[<span class="number">0</span>] - max_pooling_shape[<span class="number">0</span>]) // <span class="number">2</span></span><br><span class="line">        height_padding = (input_shape[<span class="number">1</span>] - max_pooling_shape[<span class="number">1</span>]) // <span class="number">2</span></span><br><span class="line">        padded_pooling = tf.pad(max_pooling,</span><br><span class="line">                                [</span><br><span class="line">                                [<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">                                [width_padding,width_padding],</span><br><span class="line">                                [height_padding,height_padding],</span><br><span class="line">                                [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">                                ])</span><br><span class="line">        concat_layer = tf.concat([conv1_1,conv3_3,conv5_5,padded_pooling], axis = <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> concat_layer</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line">x_image = tf.reshape(x, [<span class="number">-1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>])</span><br><span class="line">x_image = tf.transpose(x_image, perm=[<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">conv1 = tf.layers.conv2d(x_image,<span class="number">32</span>,(<span class="number">3</span>,<span class="number">3</span>),strides = (<span class="number">1</span>,<span class="number">1</span>),padding = <span class="string">'same'</span>,activation = tf.nn.relu,name = <span class="string">'conv1'</span>)</span><br><span class="line">pooling1 = tf.layers.max_pooling2d(conv1,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling1'</span>)</span><br><span class="line">         </span><br><span class="line">inception_block1a = inception_block(pooling1,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception1'</span>)</span><br><span class="line">inception_block1b = inception_block(inception_block1a,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception2'</span>)</span><br><span class="line"></span><br><span class="line">pooling2 = tf.layers.max_pooling2d(inception_block1b,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling2'</span>)</span><br><span class="line"></span><br><span class="line">inception_block2a = inception_block(pooling2,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception3'</span>)</span><br><span class="line">inception_block2b = inception_block(inception_block2a,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception4'</span>)</span><br><span class="line"></span><br><span class="line">pooling3 = tf.layers.max_pooling2d(inception_block2b,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling3'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flatten [None , 4 * 4 * 32] 全连接层</span></span><br><span class="line">flatten = tf.layers.flatten(pooling3)</span><br><span class="line"></span><br><span class="line">y_ = tf.layers.dense(flatten, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">loss = tf.losses.sparse_softmax_cross_entropy(labels=y, logits=y_)</span><br><span class="line">predict = tf.math.argmax(y_, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">correct_prediction = tf.equal(predict, y)</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'train_op'</span>):</span><br><span class="line">    train_op = tf.train.GradientDescentOptimizer(<span class="number">0.01</span></span><br><span class="line">).minimize(loss)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/12/inceptionnet/" data-id="ck8p6nf0l000dcwwi5er9e14f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/13/activationfunction/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          激活函数小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/09/resnet/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">残差网络(Residual Network)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/deep-learning/" style="font-size: 20px;">deep learning</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/13/activationfunction/">激活函数小结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/inceptionnet/">InceptionNet</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
