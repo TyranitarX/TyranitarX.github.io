@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<html lang="en">
+    <!-- title -->
 
-  
-  <title>InceptionNet | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。 1.提出原因更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的">
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。 1.提出原因更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="InceptionNet">
 <meta property="og:url" content="http://yoursite.com/2019/07/12/inceptionnet/index.html">
@@ -24,76 +37,388 @@
 <meta property="article:tag" content="deep learning">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5971313-13c125fec9698215.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>InceptionNet · TyranitarX Connect</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
 
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
 <meta name="generator" content="Hexo 4.2.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-inceptionnet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/12/inceptionnet/" class="article-date">
-  <time datetime="2019-07-12T02:05:35.000Z" itemprop="datePublished">2019-07-12</time>
-</a>
     
-  </div>
-  <div class="article-inner">
+        <body class="post-body">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      InceptionNet
-    </h1>
-  
+<header class="header">
 
-      </header>
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
     
-    <div class="article-entry" itemprop="articleBody">
-      
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >TyranitarX Connect.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">InceptionNet</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>TyranitarX Connect.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            InceptionNet
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "deep learning">deep learning</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">587</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/07/12</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
         <p>InceptionNet又称googleNet，最初的设计思路是增加网络宽度：InceptionNet核心结构包括多个分支，分别对应不同的感受野。大的感受野适用大的目标，小的感受野适用小目标，如此网络具备了scale不变性。<br>不同感受野最终通过concat合并在一起，为了避免通道数爆炸，在每个分支上引入1x1卷积降低通道数目。</p>
 <h3 id="1-提出原因"><a href="#1-提出原因" class="headerlink" title="1.提出原因"></a>1.提出原因</h3><p>更深层次的网络更容易过拟合，更深的网络拥有更大计算量。之前的dropout 实现了稀疏网络减少了参数，但是并没有减少计算量。</p>
 <h3 id="2-模型结构"><a href="#2-模型结构" class="headerlink" title="2.模型结构"></a>2.模型结构</h3><h4 id="v1结构"><a href="#v1结构" class="headerlink" title="v1结构"></a>v1结构</h4><ul>
@@ -109,146 +434,432 @@
 <li>引入skip connection （即残差连接）</li>
 </ul>
 <h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inception_block</span><span class="params">(x,output_channel_for_each_path,name)</span>:</span></span><br><span class="line">    <span class="string">''' inception block implementation'''</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">        -x: 输入</span></span><br><span class="line"><span class="string">        -output_channel_for_each_path: 每个组的输出</span></span><br><span class="line"><span class="string">        -name: block名称</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(name):</span><br><span class="line">        conv1_1 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">0</span>],</span><br><span class="line">                                    (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv1_1'</span></span><br><span class="line">                                    )</span><br><span class="line"></span><br><span class="line">        conv3_3 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">1</span>],</span><br><span class="line">                                    (<span class="number">3</span>,<span class="number">3</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv3_3'</span></span><br><span class="line">                                    )    </span><br><span class="line"></span><br><span class="line">        conv5_5 = tf.layers.conv2d(x,</span><br><span class="line">                                    output_channel_for_each_path[<span class="number">2</span>],</span><br><span class="line">                                    (<span class="number">5</span>,<span class="number">5</span>),</span><br><span class="line">                                    strides = (<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">                                    padding = <span class="string">'same'</span>,</span><br><span class="line">                                    activation = tf.nn.relu,</span><br><span class="line">                                    name = <span class="string">'conv5_5'</span></span><br><span class="line">                                    )                                                  </span><br><span class="line">        max_pooling = tf.layers.max_pooling2d(x,</span><br><span class="line">                                            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">                                            (<span class="number">2</span>,<span class="number">2</span>),</span><br><span class="line">                                            name = <span class="string">'max_pooling'</span></span><br><span class="line">                                            )</span><br><span class="line">        max_pooling_shape = max_pooling.get_shape().as_list()[<span class="number">1</span>:]</span><br><span class="line">        input_shape = x.get_shape().as_list()[<span class="number">1</span>:]</span><br><span class="line">        width_padding = (input_shape[<span class="number">0</span>] - max_pooling_shape[<span class="number">0</span>]) // <span class="number">2</span></span><br><span class="line">        height_padding = (input_shape[<span class="number">1</span>] - max_pooling_shape[<span class="number">1</span>]) // <span class="number">2</span></span><br><span class="line">        padded_pooling = tf.pad(max_pooling,</span><br><span class="line">                                [</span><br><span class="line">                                [<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">                                [width_padding,width_padding],</span><br><span class="line">                                [height_padding,height_padding],</span><br><span class="line">                                [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">                                ])</span><br><span class="line">        concat_layer = tf.concat([conv1_1,conv3_3,conv5_5,padded_pooling], axis = <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> concat_layer</span><br><span class="line"></span><br><span class="line">x = tf.placeholder(tf.float32, [<span class="literal">None</span>, <span class="number">3072</span>])</span><br><span class="line">y = tf.placeholder(tf.int64, [<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line">x_image = tf.reshape(x, [<span class="number">-1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>])</span><br><span class="line">x_image = tf.transpose(x_image, perm=[<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">conv1 = tf.layers.conv2d(x_image,<span class="number">32</span>,(<span class="number">3</span>,<span class="number">3</span>),strides = (<span class="number">1</span>,<span class="number">1</span>),padding = <span class="string">'same'</span>,activation = tf.nn.relu,name = <span class="string">'conv1'</span>)</span><br><span class="line">pooling1 = tf.layers.max_pooling2d(conv1,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling1'</span>)</span><br><span class="line">         </span><br><span class="line">inception_block1a = inception_block(pooling1,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception1'</span>)</span><br><span class="line">inception_block1b = inception_block(inception_block1a,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception2'</span>)</span><br><span class="line"></span><br><span class="line">pooling2 = tf.layers.max_pooling2d(inception_block1b,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling2'</span>)</span><br><span class="line"></span><br><span class="line">inception_block2a = inception_block(pooling2,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception3'</span>)</span><br><span class="line">inception_block2b = inception_block(inception_block2a,[<span class="number">16</span>,<span class="number">16</span>,<span class="number">16</span>],<span class="string">'inception4'</span>)</span><br><span class="line"></span><br><span class="line">pooling3 = tf.layers.max_pooling2d(inception_block2b,(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">2</span>),name = <span class="string">'pooling3'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flatten [None , 4 * 4 * 32] 全连接层</span></span><br><span class="line">flatten = tf.layers.flatten(pooling3)</span><br><span class="line"></span><br><span class="line">y_ = tf.layers.dense(flatten, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">loss = tf.losses.sparse_softmax_cross_entropy(labels=y, logits=y_)</span><br><span class="line">predict = tf.math.argmax(y_, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">correct_prediction = tf.equal(predict, y)</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float64))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'train_op'</span>):</span><br><span class="line">    train_op = tf.train.GradientDescentOptimizer(<span class="number">0.01</span></span><br><span class="line">).minimize(loss)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/12/inceptionnet/" data-id="ck8p6nf0l000dcwwi5er9e14f" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li></ul>
-
-    </footer>
-  </div>
-  
+    </article>
+    <!-- license  -->
     
-<nav id="article-nav">
-  
-    <a href="/2019/07/13/activationfunction/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          激活函数小结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/07/09/resnet/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">残差网络(Residual Network)</div>
-    </a>
-  
-</nav>
+        <div class="license-wrapper">
+            <p>Author：<a href="http://yoursite.com">John Doe</a>
+            <p>原文链接：<a href="http://yoursite.com/2019/07/12/inceptionnet/">http://yoursite.com/2019/07/12/inceptionnet/</a>
+            <p>发表日期：<a href="http://yoursite.com/2019/07/12/inceptionnet/">July 12th 2019, 10:05:35 am</a>
+            <p>更新日期：<a href="http://yoursite.com/2019/07/12/inceptionnet/">July 13th 2019, 9:07:06 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/07/13/activationfunction/" title= "激活函数小结">
+                    <div class="nextTitle">激活函数小结</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/07/09/resnet/" title= "残差网络(Residual Network)">
+                    <div class="prevTitle">残差网络(Residual Network)</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
 
-  
-</article>
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
 
-</section>
-        
-          <aside id="sidebar">
-  
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
     
 
-  
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deep-learning/" rel="tag">deep learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
-    </div>
-  </div>
-
-
-  
+    <div class="social">
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/TensorFlow/" style="font-size: 10px;">TensorFlow</a> <a href="/tags/deep-learning/" style="font-size: 20px;">deep learning</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a>
-    </div>
-  </div>
-
-  
+        
+            
+                <a href="mailto:835234416@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
+        
+            
+                <a href="//github.com/TyranitarX" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
         
-          <li>
-            <a href="/2019/07/22/Cifar-batch-normalization/">批标准化+数据增强 处理后的Cifar-10 分类网络</a>
-          </li>
+    
         
-          <li>
-            <a href="/2019/07/22/Data-Enhancement/">TensorFlow数据增强API学习</a>
-          </li>
+    
         
-          <li>
-            <a href="/2019/07/13/activationfunction/">激活函数小结</a>
-          </li>
+    
         
-          <li>
-            <a href="/2019/07/12/inceptionnet/">InceptionNet</a>
-          </li>
+            
+                <a href="https://www.weibo.com/2168968160/profile?rightmod=1&wvr=6&mod=personinfo" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
         
-          <li>
-            <a href="/2019/07/09/resnet/">残差网络(Residual Network)</a>
-          </li>
+    
         
-      </ul>
-    </div>
-  </div>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://space.bilibili.com/297821" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
-  </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
 
-<script src="/js/script.js"></script>
 
 
+top:50vh;
 
-
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-提出原因"><span class="toc-number">1.</span> <span class="toc-text">1.提出原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-模型结构"><span class="toc-number">2.</span> <span class="toc-text">2.模型结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#v1结构"><span class="toc-number">2.1.</span> <span class="toc-text">v1结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v2结构"><span class="toc-number">2.2.</span> <span class="toc-text">v2结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v3结构"><span class="toc-number">2.3.</span> <span class="toc-text">v3结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#v4结构"><span class="toc-number">2.4.</span> <span class="toc-text">v4结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实现"><span class="toc-number">2.5.</span> <span class="toc-text">代码实现</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 11
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/22</span><a class="archive-post-title" href= "/2019/07/22/Cifar-batch-normalization/" >批标准化+数据增强 处理后的Cifar-10 分类网络</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/22</span><a class="archive-post-title" href= "/2019/07/22/Data-Enhancement/" >TensorFlow数据增强API学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/13</span><a class="archive-post-title" href= "/2019/07/13/activationfunction/" >激活函数小结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/12</span><a class="archive-post-title" href= "/2019/07/12/inceptionnet/" >InceptionNet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/09</span><a class="archive-post-title" href= "/2019/07/09/resnet/" >残差网络(Residual Network)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/conv-network/" >针对Cifar-10数据集建立的卷积神经网络</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/06</span><a class="archive-post-title" href= "/2019/07/06/cnn/" >卷积神经网络</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2019/07/05/SGD-Momentum/" >梯度下降问题处理以及算法优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2019/07/05/Cifar-10-instance-10/" >神经网络实现-------多分类Logistic回归模型</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2019/07/05/Cifar-10-instance/" >神经元实现---二分类Logistic回归模型</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2019/07/03/neuralnetwork1/" >神经元和Logistic回归模型</a>
+        </li>
+    
+    </div>
   </div>
-</body>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="machine learning"><span class="iconfont-archer">&#xe606;</span>machine learning</span>
+    
+        <span class="sidebar-tag-name" data-tags="deep learning"><span class="iconfont-archer">&#xe606;</span>deep learning</span>
+    
+        <span class="sidebar-tag-name" data-tags="TensorFlow"><span class="iconfont-archer">&#xe606;</span>TensorFlow</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "John Doe"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
 </html>
+
+
