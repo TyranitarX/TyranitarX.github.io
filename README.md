@@ -1,1 +1,2 @@
-# 博客已迁移至 tyranitarx.run （待审核）
+# 博客已迁移至 tyranitarx.run 
+tyranitarx.run
